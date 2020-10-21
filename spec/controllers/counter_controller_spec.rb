@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Counter Controller', type: :controller do
+describe 'Counter Controller' do
   it 'get starts off at 0' do
     get '/api/count'
     parsed_body = JSON.parse(last_response.body)
