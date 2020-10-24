@@ -2,7 +2,7 @@
 
 A demonstration of a JavaScript frontend that sends requests to a basic Sinatra API, using a simplified component approach.
 
-Deployed at http://count-sheep.herokuapp.com
+Deployed at https://makers-count.herokuapp.com/
 
 Exemplifies:
 - Making Ajax requests using fetch
