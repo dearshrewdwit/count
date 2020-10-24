@@ -8,7 +8,8 @@ class CounterApp < Sinatra::Base
     end
 
     post '/count' do
-      session[:count] = params[:count]
+      data = JSON.parse(request.body.read)
+      session[:count] = data["count"]
       status 200
     end
   end

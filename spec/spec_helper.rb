@@ -1,7 +1,7 @@
 # require 'capybara/rspec'
 require 'json'
 
-require './api/app'
+require './app/app'
 require_relative 'support/rack_test'
 
 # Capybara.app = CounterApp
