@@ -21,8 +21,9 @@ class Counter {
     this._client.get('/api/count', this.setStateAndRender)
   }
 
-  setCount(data) {
-    this._client.post('/api/count', data, this.getCount)
+  setCount(number) {
+    let params = { count: number }
+    this._client.post('/api/count', params, this.getCount)
   }
 
   setStateAndRender(data) {

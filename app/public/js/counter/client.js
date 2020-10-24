@@ -8,7 +8,7 @@ const Client = () => {
   const post = (url, data, callback) => {
     let opts = {
       method: 'POST',
-      body: JSON.stringify({ count: data }),
+      body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json'
       }

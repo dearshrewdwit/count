@@ -25,7 +25,7 @@ describe('Counter', () => {
     it('calls client post with value and callback', () => {
       spyOn(mockClient, "post")
       counter.setCount(4)
-      expect(mockClient.post).toHaveBeenCalledWith('/api/count', 4, counter.getCount)
+      expect(mockClient.post).toHaveBeenCalledWith('/api/count', {count: 4}, counter.getCount)
     })
   })
 

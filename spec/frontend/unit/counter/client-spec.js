@@ -42,10 +42,10 @@ describe('Client', () => {
 
   describe('post', () => {
     it('calls fetch with url, data', () => {
-      let data = 4
+      let data = { count: 4 }
       let opts = {
         method: 'POST',
-        body: JSON.stringify({ count: data }),
+        body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json'
         }
@@ -71,7 +71,7 @@ describe('Client', () => {
         .and
         .callFake(() => mockFetchPromise)
 
-      let data = 4
+      let data = { count: 4 }
       client.post('/api/count', data, callback)
 
       expect(callback).toHaveBeenCalled()
