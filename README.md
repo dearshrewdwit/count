@@ -82,3 +82,4 @@ Example:
 ```sh
 $ curl -X POST localhost:9292/api/count -d "count=4"
 ```
+_NB: curl requests create new sessions_
