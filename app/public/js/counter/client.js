@@ -1,6 +1,6 @@
 const Client = () => {
   const get = (url, callback) => {
-    fetch(url)
+    return fetch(url)
       .then(response => response.json())
       .then(data => callback(data))
   }
@@ -14,7 +14,7 @@ const Client = () => {
       }
     }
 
-    fetch(url, opts).then(() => {
+    return fetch(url, opts).then(() => {
       callback()
     })
   }

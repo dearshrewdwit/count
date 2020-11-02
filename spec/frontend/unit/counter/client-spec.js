@@ -1,49 +1,42 @@
-let client, callback
-
-beforeEach(() => {
-  client = Client()
-})
+let client, callback, data, opts, mockResponse, mockJsonPromise, mockFetchPromise;
 
 describe('Client', () => {
+  beforeEach(() => {
+    client = Client()
+  })
+
   describe('get', () => {
-    it('calls fetch with url', () => {
+    beforeEach(() => {
       callback = jasmine.createSpy("callback")
-      let serverResponse = { count: 2 }
-      let mockJsonPromise = Promise.resolve(callback(serverResponse))
-      let mockFetchPromise = Promise.resolve({
+      mockResponse = { count: 3 }
+      mockJsonPromise = Promise.resolve(mockResponse)
+      mockFetchPromise = Promise.resolve({
         json: () => mockJsonPromise
       })
+
       spyOn(window, "fetch")
         .and
         .callFake(() => mockFetchPromise)
+    })
 
+    it('calls fetch with url', () => {
       client.get('/api/count', callback)
 
       expect(fetch).toHaveBeenCalledWith('/api/count')
     })
 
     it('calls callback with data', () => {
-      callback = jasmine.createSpy("cb")
-      let mockResponse = { count: 3 }
-      let mockJsonPromise = Promise.resolve(callback(mockResponse))
-      let mockFetchPromise = Promise.resolve({
-        json: () => mockJsonPromise
-      })
-
-      spyOn(window, "fetch")
-        .and
-        .callFake(() => mockFetchPromise)
-
-      client.get('/api/count', callback)
-
-      expect(callback).toHaveBeenCalledWith(mockResponse)
+      return client.get('/api/count', callback)
+        .then(() => {
+          expect(callback).toHaveBeenCalledWith(mockResponse)
+        })
     })
   })
 
   describe('post', () => {
-    it('calls fetch with url, data', () => {
-      let data = { count: 4 }
-      let opts = {
+    beforeEach(() => {
+      data = { count: 4 }
+      opts = {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -51,30 +44,25 @@ describe('Client', () => {
         }
       }
 
-      callback = jasmine.createSpy("cb")
-      let mockFetchPromise = Promise.resolve(callback())
+      callback = jasmine.createSpy("callback")
+      let mockFetchPromise = Promise.resolve(callback)
 
       spyOn(window, "fetch")
         .and
         .callFake(() => mockFetchPromise)
+    })
 
+    it('calls fetch with url, data', () => {
       client.post('/api/count', data, callback)
 
       expect(fetch).toHaveBeenCalledWith('/api/count', opts)
     })
 
     it('calls callback', () => {
-      callback = jasmine.createSpy("cb")
-      let mockFetchPromise = Promise.resolve(callback())
-
-      spyOn(window, "fetch")
-        .and
-        .callFake(() => mockFetchPromise)
-
-      let data = { count: 4 }
-      client.post('/api/count', data, callback)
-
-      expect(callback).toHaveBeenCalled()
+      return client.post('/api/count', data, callback)
+        .then(() => {
+          expect(callback).toHaveBeenCalled()
+        })
     })
   })
 })
